@@ -1,18 +1,39 @@
 class Card
 
-  attr_reader :amount
+  attr_reader :balance
+  attr_accessor :journey
 
-  def initialize(amount)
-    @amount = amount
+  LIMIT = 90
+
+  def initialize(balance = 0)
+    @balance = balance
   end
 
-  def add(money)
-    fail "Can't add more than £100" if money > 100
-    @amount += money
+  def top_up(money)
+    fail "Top up would take balance over card limit - £#{LIMIT}" if exceeds_limit?(money)
+    @balance += money
   end
 
   def deduct(fare)
-    @amount -= fare
+    @balance -= fare
+  end
+
+  def touch_in
+    @journey = true
+  end
+
+  def touch_out
+    @journey = false
+  end
+
+  def in_journey?
+    @journey
+  end
+
+  private
+
+  def exceeds_limit?(money)
+    (@balance + money) > LIMIT
   end
 
 end
