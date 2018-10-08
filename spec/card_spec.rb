@@ -1,9 +1,13 @@
 require 'card'
 
 describe Card do
+
+  before(:each) do
+    @card = Card.new(10)
+  end
+
   it 'Card has intialised amount' do
-    card = Card.new(10)
-    expect(card.balance).to eq 10
+    expect(@card.balance).to eq 10
   end
 
   it 'Card has a default amount' do
@@ -19,19 +23,23 @@ describe Card do
     expect { subject.top_up(91) }.to raise_error "Top up would take balance over card limit - £#{Card::LIMIT}"
   end
 
-  it 'deducts fare from total on card' do
-    card = Card.new(10)
-    expect(card.deduct(5)).to eq 5
-  end
-
   it 'starts a journey' do
-    subject.touch_in
-    expect(subject.in_journey?).to eq true
+    @card.touch_in
+    expect(@card.in_journey?).to eq true
   end
 
   it 'ends a journey' do
-    subject.touch_in
-    subject.touch_out
-    expect(subject.in_journey?).to eq false
+    @card.touch_in
+    @card.touch_out
+    expect(@card.in_journey?).to eq false
+  end
+
+  it "Doesn't allow you through the barrier if balance less than £1" do
+    card = Card.new(0.99)
+    expect { card.touch_in }.to raise_error "You need a minimum balance of £#{Card::MINIMUM_FARE} to enter barrier."
+  end
+
+  it "deducts the journey cost from balance" do
+    expect {@card.touch_out}.to change{@card.balance}.by(-(Card::MINIMUM_FARE))
   end
 end

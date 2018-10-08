@@ -4,6 +4,7 @@ class Card
   attr_accessor :journey
 
   LIMIT = 90
+  MINIMUM_FARE = 1
 
   def initialize(balance = 0)
     @balance = balance
@@ -15,15 +16,13 @@ class Card
     @balance += money
   end
 
-  def deduct(fare)
-    @balance -= fare
-  end
-
   def touch_in
+    fail "You need a minimum balance of £#{MINIMUM_FARE} to enter barrier." if balance_low
     self.journey=(true)
   end
 
   def touch_out
+    deduct(MINIMUM_FARE)
     self.journey=(false)
   end
 
@@ -35,6 +34,14 @@ class Card
 
   def exceeds_limit?(money)
     (@balance + money) > LIMIT
+  end
+
+  def balance_low
+    balance <= MINIMUM_FARE
+  end
+
+  def deduct(fare)
+    @balance -= fare
   end
 
 end
