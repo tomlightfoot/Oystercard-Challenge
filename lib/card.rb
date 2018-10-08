@@ -7,6 +7,7 @@ class Card
 
   def initialize(balance = 0)
     @balance = balance
+    @journey = false
   end
 
   def top_up(money)
@@ -19,15 +20,15 @@ class Card
   end
 
   def touch_in
-    @journey = true
+    self.journey=(true)
   end
 
   def touch_out
-    @journey = false
+    self.journey=(false)
   end
 
   def in_journey?
-    @journey
+    journey
   end
 
   private
