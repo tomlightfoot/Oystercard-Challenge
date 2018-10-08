@@ -1,14 +1,14 @@
 class Card
 
   attr_reader :balance
-  attr_accessor :journey
+  attr_reader :entry_station
 
   LIMIT = 90
   MINIMUM_FARE = 1
 
   def initialize(balance = 0)
     @balance = balance
-    @journey = false
+    @entry_station = nil
   end
 
   def top_up(money)
@@ -16,18 +16,18 @@ class Card
     @balance += money
   end
 
-  def touch_in
+  def touch_in(station)
     fail "You need a minimum balance of £#{MINIMUM_FARE} to enter barrier." if balance_low
-    self.journey=(true)
+    @entry_station = station
   end
 
   def touch_out
     deduct(MINIMUM_FARE)
-    self.journey=(false)
+    @entry_station = nil
   end
 
   def in_journey?
-    journey
+    !!entry_station
   end
 
   private
