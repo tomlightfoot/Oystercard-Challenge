@@ -1,9 +1,9 @@
 class Card
-
   attr_reader :balance, :entry_station, :exit_station, :journey, :journey_history
 
   LIMIT = 90
   MINIMUM_FARE = 1
+  DEFAULT_CHARGE = 6
 
   def initialize(balance = 0)
     @balance = balance
@@ -18,21 +18,23 @@ class Card
   end
 
   def touch_in(entry_station)
+    deduct(DEFAULT_CHARGE) and return "You didn't touch out on your last journey, you will be charged a penalty fee of £#{Card::DEFAULT_CHARGE}" if in_journey?
     fail "You need a minimum balance of £#{MINIMUM_FARE} to enter barrier." if balance_low
     @entry_station = entry_station
     journey[:entry_station] = @entry_station
   end
 
   def touch_out(exit_station)
+    deduct(DEFAULT_CHARGE) and return "You didn't touch in, you will be charged a penalty fee of £#{Card::DEFAULT_CHARGE}" if !in_journey?
     deduct(MINIMUM_FARE)
     @entry_station = nil
     journey[:exit_station] = exit_station
-    journey_history << journey
-    @journey = {}
+    journey_to_history
+    reset_journey
   end
 
   def in_journey?
-    !!entry_station
+    entry_station != nil
   end
 
   private
@@ -49,4 +51,11 @@ class Card
     @balance -= fare
   end
 
+  def journey_to_history
+    journey_history << journey
+  end
+
+  def reset_journey
+    @journey = {}
+  end
 end

@@ -42,7 +42,8 @@ describe Card do
   end
 
   it "deducts the journey cost from balance" do
-    expect {@card.touch_out(station)}.to change{@card.balance}.by(-(Card::MINIMUM_FARE))
+    @card.touch_in(station)
+    expect { @card.touch_out(station) }.to change{ @card.balance }.by(-(Card::MINIMUM_FARE))
   end
 
   it "Remembers the entry station" do
@@ -61,6 +62,24 @@ describe Card do
     @card.touch_out('St Pancras')
     @card.touch_in('St Pancras')
     @card.touch_out('Ashford')
-    expect(@card.journey_history).to eq [{entry_station: 'Barbican', exit_station: 'St Pancras'}, {entry_station: 'St Pancras', exit_station: 'Ashford'}]
+    expect(@card.journey_history).to eq [{ entry_station: 'Barbican', exit_station: 'St Pancras' }, { entry_station: 'St Pancras', exit_station: 'Ashford' }]
+  end
+
+  it 'Raises an error if you try to touch out before touching in' do
+    expect(@card.touch_out(station)).to eq "You didn't touch in, you will be charged a penalty fee of £#{Card::DEFAULT_CHARGE}"
+  end
+
+  it 'Charges if touching out without touching in' do
+    expect { @card.touch_out(station) }.to change{ @card.balance }.by(-(Card::DEFAULT_CHARGE))
+  end
+
+  it 'Charges if touch in twice having never touched out' do
+    @card.touch_in(station)
+    expect(@card.touch_in(station)).to eq "You didn't touch out on your last journey, you will be charged a penalty fee of £#{Card::DEFAULT_CHARGE}"
+  end
+
+  it 'Charges if touch in twice having never touched out' do
+    @card.touch_in(station)
+    expect { @card.touch_in(station) }.to change{ @card.balance }.by(-(Card::DEFAULT_CHARGE))
   end
 end
