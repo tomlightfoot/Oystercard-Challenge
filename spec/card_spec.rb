@@ -32,7 +32,7 @@ describe Card do
 
   it 'ends a journey' do
     @card.touch_in(station)
-    @card.touch_out
+    @card.touch_out(station)
     expect(@card.in_journey?).to eq false
   end
 
@@ -42,7 +42,7 @@ describe Card do
   end
 
   it "deducts the journey cost from balance" do
-    expect {@card.touch_out}.to change{@card.balance}.by(-(Card::MINIMUM_FARE))
+    expect {@card.touch_out(station)}.to change{@card.balance}.by(-(Card::MINIMUM_FARE))
   end
 
   it "Remembers the entry station" do
@@ -52,7 +52,15 @@ describe Card do
 
   it "clears the entry station" do
     @card.touch_in(station)
-    @card.touch_out
+    @card.touch_out(station)
     expect(@card.entry_station).to eq nil
+  end
+
+  it 'Shows all journeys' do
+    @card.touch_in('Barbican')
+    @card.touch_out('St Pancras')
+    @card.touch_in('St Pancras')
+    @card.touch_out('Ashford')
+    expect(@card.journey_history).to eq [{entry_station: 'Barbican', exit_station: 'St Pancras'}, {entry_station: 'St Pancras', exit_station: 'Ashford'}]
   end
 end

@@ -68,4 +68,22 @@ In order to be charged the correct amount
 As a customer
 I need to have the correct fare calculated
 ```
-test
+
+
+require './lib/Card.rb'
+
+card = Card.new(30)
+card.touch_in(barbican)
+card.touch_out(st pancras)
+card.exit_station = st pancras
+card.touch_in(St pancras)
+card.touch_out(Ashford)
+card.all_journeys
+= [{
+  entry_station => barbican,
+  exit_station => st pancras
+},
+{
+  entry_station => St pancras,
+  exit_station => Ashford
+}
