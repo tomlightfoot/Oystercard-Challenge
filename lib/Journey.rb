@@ -1,13 +1,10 @@
 class Journey
-  attr_reader :journey, :journey_history
+  attr_reader :journey, :entry_station, :exit_station
 
-  def initialize
-    @journey = {}
-    @journey_history = []
-    @station = Station.new
+  def initialize(journey = {}, entry_station = "Clapham")
+    @journey = journey
+    @entry_station = entry_station
+    @exit_station = nil
   end
 
-  # def journey
-  #    @journey = { :entry_station => @station.entry_station(station, zone), :exit_station => @station.entry_station(station, zone) }
-  # end
 end

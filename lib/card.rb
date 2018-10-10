@@ -8,7 +8,6 @@ class Card
   def initialize(balance = 0)
     @balance = balance
     @entry_station = nil
-    @journey = {}
     @journey_history = []
   end
 

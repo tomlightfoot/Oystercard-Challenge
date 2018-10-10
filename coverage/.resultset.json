@@ -35,11 +35,11 @@
         1,
         null,
         1,
-        3,
-        3,
+        1,
         1,
         1,
         null,
+        1,
         1,
         1,
         null,
@@ -47,15 +47,12 @@
       ],
       "/Users/thomas.lightfoot/Projects/Week-Two/Oystercard-Challenge/lib/Station.rb": [
         1,
-        1,
-        1,
-        null,
         null,
         1,
+        null,
         1,
-        null,
-        null,
-        null,
+        4,
+        4,
         null,
         null,
         null
@@ -211,6 +208,6 @@
         null
       ]
     },
-    "timestamp": 1539102560
+    "timestamp": 1539179829
   }
 }
