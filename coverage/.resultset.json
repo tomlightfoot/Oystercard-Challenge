@@ -1,20 +1,45 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/thomas.lightfoot/Projects/Week-Two/Oystercard-Challenge/spec/Journey_spec.rb": [
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/thomas.lightfoot/Projects/Week-Two/Oystercard-Challenge/lib/Journey.rb": [
+        1,
+        1,
+        null,
+        1,
+        2,
+        2,
+        2,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
       "/Users/thomas.lightfoot/Projects/Week-Two/Oystercard-Challenge/spec/Station_spec.rb": [
         1,
         null,
         1,
-        4,
-        4,
+        3,
+        3,
         1,
         1,
         null,
-        1,
-        1,
-        null,
-        1,
-        1,
         1,
         1,
         null,
@@ -23,15 +48,15 @@
       "/Users/thomas.lightfoot/Projects/Week-Two/Oystercard-Challenge/lib/Station.rb": [
         1,
         1,
-        2,
-        null,
-        null,
         1,
-        2,
         null,
         null,
         1,
         1,
+        null,
+        null,
+        null,
+        null,
         null,
         null
       ],
@@ -186,6 +211,6 @@
         null
       ]
     },
-    "timestamp": 1539099644
+    "timestamp": 1539102560
   }
 }

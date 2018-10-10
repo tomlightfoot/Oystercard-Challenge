@@ -9,9 +9,4 @@ describe Station do
   it 'Gives an exit station a name and a zone' do
     expect(subject.exit_station(station, zone)).to eq ({station=>zone})
   end
-  it 'Gives a full journey' do
-    subject.entry_station(station, zone)
-    subject.exit_station(station, zone)
-    expect(subject.journey).to eq ( { :entry_station => {station=>zone}, :exit_station => {station=>zone} } )
-  end
 end
